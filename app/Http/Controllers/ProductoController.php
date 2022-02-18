@@ -15,11 +15,21 @@ class ProductoController extends Controller
     }
     public function create()
     {
-        //
+        return view('productos.create');
     }
     public function store()
     {
-        //
+        // $product = Producto::create([
+        //   'titulo' => request()->titulo,
+        // 'descripcion' => request()->descripcion,
+        //'precio' => request()->precio,
+        //'stock' => request()->stock,
+        //  'estado' => request()->estado,
+        //]);
+
+        $product = Producto::create(request()->all());
+
+        return $product;
     }
     public function edit($product)
     {
