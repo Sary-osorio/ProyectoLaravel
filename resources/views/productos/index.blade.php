@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.master')
+
+@section('content')
     <h1>Lista de Productos</h1>
+    @empty($products)
+    <div class="alert alert-warning">
+        La lista de productos esta vacia.
+    </div>
+
+    @else
+
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead class="thead-light">
@@ -15,21 +17,25 @@
                     <th>ID</th>
                     <th>Titulo</th>
                     <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($products as $row)
                 <tr>
-                    <td>1</td>
-                    <td>Shampoo</td>
-                    <td>El mejor shampoo</td>
+                    <td>{{$row->id}}</td>
+                    <td>{{$row->titulo}}</td>
+                    <td>{{$row->descripcion}}</td>
+                    <td>{{$row->precio}}</td>
+                    <td>{{$row->stock}}</td>
+                    <td>{{$row->estado}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jabon</td>
-                    <td>El mejor jabon</td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
-</body>
-</html>
+    @endempty
+    @endsection
+
