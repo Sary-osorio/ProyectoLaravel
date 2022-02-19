@@ -33,11 +33,15 @@ class ProductoController extends Controller
     }
     public function edit($product)
     {
-        //
+        return view('productos.edit')->with([
+            'product' => Producto::findOrFail($product),
+        ]);
     }
     public function update($product)
     {
-        //
+        $product = Producto::findOrFail($product);
+        $product->update(request()->all());
+        return $product;
     }
     public function show($product)
     {
@@ -48,6 +52,8 @@ class ProductoController extends Controller
     }
     public function destroy($product)
     {
-        //
+        $product = Producto::findOrFail($product);
+        $product->delete();
+        return $product;
     }
 }
