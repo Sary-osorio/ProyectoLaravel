@@ -26,6 +26,14 @@ class ProductoController extends Controller
         //'stock' => request()->stock,
         //  'estado' => request()->estado,
         //]);
+        $rules = [
+            'titulo' => ['required', 'max:255'],
+            'descripcion' => ['required', 'max:1000'],
+            'precio' => ['required', 'min:1'],
+            'stock' => ['required', 'min:0'],
+            'estado' => ['required', 'in:Disponible,No disponible'],
+        ];
+        request()->validate($rules);
         if (request()->estado == 'Disponible' && request()->stock == 0) {
             session()->flash('error', 'No puede estar disponible si el stock es cero');
             return redirect()->back();
@@ -42,6 +50,14 @@ class ProductoController extends Controller
     }
     public function update($product)
     {
+        $rules = [
+            'titulo' => ['required', 'max:255'],
+            'descripcion' => ['required', 'max:1000'],
+            'precio' => ['required', 'min:1'],
+            'stock' => ['required', 'min:0'],
+            'estado' => ['required', 'in:Disponible,No disponible'],
+        ];
+        request()->validate($rules);
         $product = Producto::findOrFail($product);
         $product->update(request()->all());
         return redirect()->route('products.index');
