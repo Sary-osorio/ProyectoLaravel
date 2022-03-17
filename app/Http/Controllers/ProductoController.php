@@ -26,10 +26,13 @@ class ProductoController extends Controller
         //'stock' => request()->stock,
         //  'estado' => request()->estado,
         //]);
-
+        if (request()->estado == 'Disponible' && request()->stock == 0) {
+            session()->flash('error', 'No puede estar disponible si el stock es cero');
+            return redirect()->back();
+        }
         $product = Producto::create(request()->all());
 
-        return $product;
+        return redirect()->route('products.index');
     }
     public function edit($product)
     {
@@ -41,7 +44,7 @@ class ProductoController extends Controller
     {
         $product = Producto::findOrFail($product);
         $product->update(request()->all());
-        return $product;
+        return redirect()->route('products.index');
     }
     public function show($product)
     {
@@ -54,6 +57,6 @@ class ProductoController extends Controller
     {
         $product = Producto::findOrFail($product);
         $product->delete();
-        return $product;
+        return redirect()->route('products.index');
     }
 }
