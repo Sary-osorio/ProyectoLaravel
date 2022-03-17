@@ -6,26 +6,28 @@
         @csrf
         <div class="form-row">
             <label>Titulo</label>
-            <input class="form-control" type="text" name="titulo">
+            <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}" required>
         </div>
         <div class="form-row">
             <label>Descripcion</label>
-            <input class="form-control" type="text" name="descripcion">
+            <input class="form-control" type="text" name="descripcion" value="{{ old('descripcion') }}" required>
         </div>
-        <div class="form-row">
+        <div class="     form-row">
             <label>precio</label>
-            <input class="form-control" type="number" min="1.00" step="0.01" name="precio">
+            <input class="form-control" type="number" min="1.00" step="0.01" name="precio" value="{{ old('precio') }}"
+                required>
         </div>
-        <div class="form-row">
+        <div class="      form-row">
             <label>Stock</label>
-            <input class="form-control" type="number" min="0" name="stock">
+            <input class="form-control" type="number" min="0" name="stock" value="{{ old('stock') }}" required>
         </div>
-        <div class="form-row">
+        <div class="      form-row">
             <label>Estado</label>
             <select class="custom-select" name="estado">
                 <option value="" selected>Seleccione</option>
-                <option value="Disponible">Disponible</option>
-                <option value="No disponible">No disponible</option>
+                <option {{ old('estado') == 'Disponible' ? 'selected' : '' }} value="Disponible">Disponible</option>
+                <option {{ old('estado') == 'No disponible' ? 'selected' : '' }} value="No disponible">No disponible
+                </option>
             </select>
         </div>
         <div class="form-row">

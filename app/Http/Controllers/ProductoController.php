@@ -36,7 +36,7 @@ class ProductoController extends Controller
         request()->validate($rules);
         if (request()->estado == 'Disponible' && request()->stock == 0) {
             session()->flash('error', 'No puede estar disponible si el stock es cero');
-            return redirect()->back();
+            return redirect()->back()->withInput(request()->all());
         }
         $product = Producto::create(request()->all());
 
