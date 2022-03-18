@@ -35,12 +35,16 @@ class ProductoController extends Controller
         ];
         request()->validate($rules);
         if (request()->estado == 'Disponible' && request()->stock == 0) {
-            session()->flash('error', 'No puede estar disponible si el stock es cero');
-            return redirect()->back()->withInput(request()->all());
+            // session()->flash('error', 'No puede estar disponible si el stock es cero');
+            return redirect()->back()
+                ->withInput(request()->all())->withErrors('No puede estar disponible si el stock es cero');
         }
         $product = Producto::create(request()->all());
+        // session()->flash('success', "El nuevo producto con id {$product->id} was created");
 
-        return redirect()->route('products.index');
+
+        return redirect()->route('products.index')
+            ->withSuccess("El nuevo producto con id {$product->id} was created");
     }
     public function edit($product)
     {
@@ -60,7 +64,8 @@ class ProductoController extends Controller
         request()->validate($rules);
         $product = Producto::findOrFail($product);
         $product->update(request()->all());
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->withSuccess("El nuevo producto con id {$product->id} fue editado");
     }
     public function show($product)
     {
@@ -73,6 +78,7 @@ class ProductoController extends Controller
     {
         $product = Producto::findOrFail($product);
         $product->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')
+            ->withSuccess("El nuevo producto con id {$product->id} fue eliminado");
     }
 }
