@@ -6,7 +6,7 @@
         @csrf
         <div class="form-row">
             <label>Titulo</label>
-            <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}" required>
+            <input class="form-control" type="text" name="titulo" value="{{ old('titulo') }}">
         </div>
         <div class="form-row">
             <label>Descripcion</label>

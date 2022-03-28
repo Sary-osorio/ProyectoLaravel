@@ -15,19 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'MainController@index')->name('main');
 
-Route::get('products', 'ProductoController@index')->name('products.index');
+Route::resource('products', 'ProductoController');
+// Route::get('products', 'ProductoController@index')->name('products.index');
 
-Route::get('products/create', 'ProductoController@create')->name('products.create');
+// Route::get('products/create', 'ProductoController@create')->name('products.create');
 
-Route::post('products', 'ProductoController@store')->name('products.store');
+// Route::post('products', 'ProductoController@store')->name('products.store');
 
-Route::get('products/{product}', 'ProductoController@show')->name('products.show');
+// Route::get('products/{product}', 'ProductoController@show')->name('products.show');
 
-Route::get('products/{product}/edit', 'ProductoController@edit')->name('products.edit');
+// Route::get('products/{product}/edit', 'ProductoController@edit')->name('products.edit');
 
-Route::match(['put', 'patch'], 'products/{product}', 'ProductoController@update')->name('products.update');
+// Route::match(['put', 'patch'], 'products/{product}', 'ProductoController@update')->name('products.update');
 
-Route::delete('products/{product}', 'ProductoController@destroy')->name('products.destroy');
+// Route::delete('products/{product}', 'ProductoController@destroy')->name('products.destroy');
 
 Auth::routes();
 
