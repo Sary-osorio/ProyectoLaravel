@@ -17,7 +17,7 @@ class ProductoController extends Controller
     {
         return view('productos.index')->with([
             'products' => Producto::all(),
-        ]);;
+        ]);
     }
     public function create()
     {
