@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class CreateOrderProductoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
-            $table->id();
-            $table->float('monto')->unsigned();
-            $table->timestamp('pago')->nullable();
-            $table->bigInteger('order_id')->unsigned(); //clave foranea
-            $table->timestamps();
+        Schema::create('order_producto', function (Blueprint $table) {
+
+            $table->bigInteger('order_id')->unsigned();
+            $table->bigInteger('producto_id')->unsigned();
+            $table->bigInteger('quantity')->unsigned();
 
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('producto_id')->references('id')->on('productos');
         });
     }
 
@@ -31,6 +31,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('order_producto');
     }
 }
