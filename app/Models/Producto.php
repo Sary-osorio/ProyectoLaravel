@@ -24,4 +24,8 @@ class Producto extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+    public function scopeDisponible($query)
+    {
+        $query->where('estado', 'Disponible');
+    }
 }
