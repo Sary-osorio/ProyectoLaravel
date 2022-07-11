@@ -29,6 +29,7 @@ class ProductoRequest extends FormRequest
             'precio' => ['required', 'min:1'],
             'stock' => ['required', 'min:0'],
             'estado' => ['required', 'in:Disponible,No disponible'],
+            'images.*' => ['nullable', 'image'],
         ];
     }
 

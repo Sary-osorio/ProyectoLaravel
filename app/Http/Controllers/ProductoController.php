@@ -25,10 +25,14 @@ class ProductoController extends Controller
     }
     public function store(ProductoRequest $request)
     {
-
         $product = Producto::create($request->validated());
+        foreach ($request->images as $image) {
+            $product->images()->create([
+                'path' => 'storage/images/' . $image->store('products', 'images'),
+            ]);
+        }
         return redirect()->route('products.index')
-            ->withSuccess("El nuevo producto con id {$product->id} was created");
+            ->withSuccess("El nuevo producto con id {$product->id} se ha creado");
     }
 
     public function edit(Producto $product)
