@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-row mt-2">
                     <label>Subir imagenes</label>
-                    <input class="form-control" type="file" name="images[]" multiple>
+                    <input class="form-control" type="file" name="images[]" multiple required>
                 </div>
 
                 <div class="form-row">

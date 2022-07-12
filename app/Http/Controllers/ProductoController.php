@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductoRequest;
 use App\Models\Producto;
+use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -26,9 +28,10 @@ class ProductoController extends Controller
     public function store(ProductoRequest $request)
     {
         $product = Producto::create($request->validated());
+        //dd($request->images);
         foreach ($request->images as $image) {
             $product->images()->create([
-                'path' => 'storage/images/' . $image->store('products', 'images'),
+                'path' => 'images/' . $image->store('products', 'images'),
             ]);
         }
         return redirect()->route('products.index')
@@ -43,13 +46,30 @@ class ProductoController extends Controller
     }
     public function update(ProductoRequest $request, Producto $product)
     {
-        $product->update($request->all());
+
+        //dd($request->validated());
+        $product->update($request->validated());
+        if ($request->hasFile('images')) {
+            foreach ($product->images as $image) {
+                // $path = storage_path("app/public/{$image->path}");
+                //dd($path);
+                Storage::disk('public')->delete($image->path);
+                $image->delete();
+            }
+            foreach ($request->images as $image) {
+                $product->images()->create([
+                    'path' => 'images/' . $image->store('products', 'images'),
+                ]);
+            }
+        }
+
         return redirect()->route('products.index')
             ->withSuccess("El nuevo producto con id {$product->id} fue editado");
     }
     public function show(Producto $product)
     {
         // $product = Producto::findOrFail($product);
+
         return view('productos.show')->with([
             'product' => $product,
         ]);
