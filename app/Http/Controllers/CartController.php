@@ -21,7 +21,7 @@ class CartController extends Controller
 
 
         return view('cart.index')->with([
-            'cart' =>  $this->cartService->getFromCookieOrCreate(),
+            'cart' =>  $this->cartService->getFromCookie(),
         ]);
     }
 }

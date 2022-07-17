@@ -28,4 +28,9 @@ class Producto extends Model
     {
         $query->where('estado', 'Disponible');
     }
+
+    public function getTotalAttribute()
+    {
+        return $this->pivot->quantity * $this->precio;
+    }
 }

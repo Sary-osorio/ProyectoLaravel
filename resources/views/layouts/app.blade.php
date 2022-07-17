@@ -41,7 +41,9 @@
                             <a class="nav-link" href="{{ route('products.index') }}">Productos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('carts.index') }}">Cart</a>
+                            @inject('cartService', 'App\Services\CartService')
+                            <a class="nav-link" href="{{ route('carts.index') }}">Cart
+                                ({{ $cartService->countProducts() }})</a>
                         </li>
 
                     </ul>
@@ -71,12 +73,11 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                         document.getElementById('logout-form').submit();">
+                            document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>

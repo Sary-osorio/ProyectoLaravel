@@ -39,7 +39,8 @@ class ProductoCartController extends Controller
             $product->id => ['quantity' => $quantity + 1],
         ]);
 
-        $cookie = Cookie::make('cart', $cart->id, 7 * 24 * 60);
+        $cookie = $this->cartService->makeCookie($cart);
+
         return redirect()->back()->cookie($cookie);
     }
 
@@ -52,8 +53,10 @@ class ProductoCartController extends Controller
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto, Cart $cart)
+    public function destroy(Producto $product, Cart $cart)
     {
-        //
+        $cart->products()->detach($product->id);
+        $cookie = $this->cartService->makeCookie($cart);
+        return redirect()->back()->cookie($cookie);
     }
 }

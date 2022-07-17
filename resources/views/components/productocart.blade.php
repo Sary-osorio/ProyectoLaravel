@@ -21,23 +21,23 @@
         <h5 class="card-title">{{ $product->titulo }}</h5>
         <p class="card-text">{{ $product->descripcion }}</p>
         <p class="card-text"><strong>{{ $product->stock }} en stock</strong></p>
-        {{-- @if (isset($cart))
-            <p class="card-text">{{ $product->pivot->quantity }} in your cart
+        @if (isset($cart))
+            <p class="card-text">{{ $product->pivot->quantity }} en tu carrito
                 <strong>(${{ $product->total }})</strong>
             </p>
             <form class="d-inline" method="POST"
                 action="{{ route('products.carts.destroy', ['cart' => $cart->id, 'product' => $product->id]) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-warning">Remove From Cart</button>
+                <button type="submit" class="btn btn-warning">Borrar del carrito</button>
             </form>
-        @else --}}
-        <form class="d-inline" method="POST"
-            action="{{ route('products.carts.store', ['product' => $product->id]) }}">
-            @csrf
-            <button type="submit" class="btn btn-warning">Ver</button>
-            <button type="submit" class="btn btn-success">Añadir al carrito</button>
-        </form>
-        {{-- @endif --}}
+        @else
+            <form class="d-inline" method="POST"
+                action="{{ route('products.carts.store', ['product' => $product->id]) }}">
+                @csrf
+                {{-- <button type="submit" class="btn btn-warning">Ver</button> --}}
+                <button type="submit" class="btn btn-success">Añadir al carrito</button>
+            </form>
+        @endif
     </div>
 </div>
