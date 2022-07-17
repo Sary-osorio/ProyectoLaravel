@@ -26,4 +26,8 @@ class Order extends Model
     {
         return $this->morphToMany(Producto::class, 'productable')->withPivot('quantity');
     }
+    public function getTotalAttribute()
+    {
+        return $this->products->pluck('total')->sum();
+    }
 }
